@@ -6,7 +6,7 @@ class FruitSelector extends Component {
 
     // Currying that returns a function
     addFruit = (fruitName) => (event) => {
-        this.props.dispatch({ type: 'POST_FRUIT', payload: fruitName })
+        this.props.dispatch({ type: 'POST_FRUIT', payload: {fruit: fruitName} })
     }
 
     getFruit() {
