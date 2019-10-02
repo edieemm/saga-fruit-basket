@@ -16,12 +16,22 @@ import axios from 'axios';
 
 // Create the rootSaga generator function
 function* rootSaga() {
-    yield takeEvery('GET_FRUIT', fetchBasket)
+    yield takeEvery('GET_FRUIT', getFruit)
+    yield takeEvery('POST_FRUIT', postFruit)
 }
-function* fetchBasket() {
+function* getFruit() {
     try{
         const response = yield axios.get('/fruit');
         yield put({ type: 'SET_BASKET', payload: response.data });
+    } catch (error) {
+        console.log('error while fetching elements', error)
+    }
+}
+function* postFruit(action) {
+    console.log(action)
+    try {
+        const response = yield axios.post('/fruit', {fruit: action.payload});
+        yield put({ type: 'GET_FRUIT', payload: response.data });
     } catch (error) {
         console.log('error while fetching elements', error)
     }
